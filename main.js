@@ -48,15 +48,22 @@ function lightUpTriangle(triangleNumber, fadeTime) {
 }
 
 var regex = new RegExp("/9j/.+$");
-//var regex = \w\w\w;
-//var regex = /\*(\w+)\*/g;
 
 function saveImg() {
   var dataURL = myCanvas.toDataURL('image/jpeg');
   //var results = dataURL.match(regex);
   var results = regex.exec(dataURL);
   //console.log(results[0]);
-  document.getElementById('canvasImg').src = dataURL;
+  //document.getElementById('canvasImg').src = dataURL;
+  $.ajax({
+    url: "localhost:7000",
+    type: "POST",
+    data: results[0],
+    success: function(response){
+        //handleResponse(response);
+        console.log("ooo")
+    }
+});
 }
 
 function update() {
