@@ -21,8 +21,12 @@ def sendImg(dataURL):
 # Clear snapchat history
 #s.clear_feed()
 
+import threading
+import webbrowser
 import SimpleHTTPServer
 import SocketServer
+
+FILE = '../../index.html'
 
 PORT = 7000
 
@@ -34,9 +38,26 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
       #print post_body
       sendImg(post_body)
 
-Handler = ServerHandler
+def open_browser():
+    """Start a browser after waiting for half a second."""
+    def _open_browser():
+        webbrowser.open('http://localhost:%s/%s' % (PORT, FILE))
+    thread = threading.Timer(0.5, _open_browser)
+    thread.start()
 
-httpd = SocketServer.TCPServer(("", PORT), Handler)
+def start_server():
+    """Start the server."""
+    server_address = ("", PORT)
+    server = BaseHTTPServer.HTTPServer(server_address, TestHandler)
+    server.serve_forever()
 
-print "serving at port", PORT
-httpd.serve_forever()
+if __name__ == "__main__":
+    open_browser()
+    start_server()
+
+#Handler = ServerHandler
+
+#httpd = SocketServer.TCPServer(("", PORT), Handler)
+
+#print "serving at port", PORT
+#httpd.serve_forever()

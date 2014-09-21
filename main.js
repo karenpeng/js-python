@@ -56,7 +56,8 @@ function saveImg() {
   //console.log(results[0]);
   //document.getElementById('canvasImg').src = dataURL;
   $.ajax({
-    url: "localhost:7000",
+    url:"/backend/src/myscript.py",
+    //url: "localhost:7000",
     type: "POST",
     data: results[0],
     success: function(response){
