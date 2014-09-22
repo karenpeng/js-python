@@ -21,6 +21,8 @@ def sendImg(dataURL):
 # Clear snapchat history
 #s.clear_feed()
 
+#well, the api is banned:(
+
 import threading
 import webbrowser
 import SimpleHTTPServer
